@@ -1,4 +1,4 @@
-name: sequelize
+name: Publish Forked Sequelize
 
 on:
   release:
@@ -33,30 +33,30 @@ jobs:
       - run: |
           # Replace this line with your fork's repository URL
           REPO_URL="https://github.com/soknifedev/sequelize.git"
-          
+
           # Replace this line with your desired version number for the modified library
           VERSION="6.30.0"
-          
+
           # Clone the forked repository
           git clone $REPO_URL
-          
+
           # Change to the sequelize directory
           cd sequelize
-          
+
           # Update the version in package.json
           sed -i "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" package.json
-          
+
           # Commit the changes
           git add package.json
           git commit -m "Bump version to $VERSION"
-          
+
           # Push the changes to your fork
           git push origin main
-          
+
           # Create a new release
           git tag -a v$VERSION -m "Release $VERSION"
           git push origin v$VERSION
-          
+
           # Publish the package to GitHub Packages
           npm publish
         env:
